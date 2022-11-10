@@ -59,7 +59,7 @@ let handler = async (m, { conn, text, usedPrefix }) => {
  }
 }
 handler.help = ['promote <@user>']
-handler.tags = ['admin']
+handler.tags = ['groub', 'owner']
 handler.command = /^promote$/i
 handler.group = true
 
