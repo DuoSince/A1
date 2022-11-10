@@ -7,7 +7,7 @@
   conn.reply(m.chat, `Diturunkan sebagai admin @${users.split('@')[0]}`, m)
 }
 handler.help = ['demote','member','↓'].map(v => v + ' @user')
-handler.tags = ['admin']
+handler.tags = ['groub', 'owner']
 
 handler.command = /^(demote|member|↓)$/i
 
