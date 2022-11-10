@@ -1,60 +1,64 @@
-const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType } = require('@adiwajshing/baileys')
+const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, MessageType, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType } = require('@adiwajshing/baileys')
 let fs = require('fs')
 let path = require('path')
 let fetch = require('node-fetch')
 let moment = require('moment-timezone')
 let levelling = require('../lib/levelling')
 let tags = {
-  'rpgabsen': 'Rpg-Absen',
-  'rpg': 'Rpg',
-  'game': 'Game',
-  'xp': 'Exp, Limit & Pay',
-  'sticker': 'Sticker',
-  'main': 'Main',
-  'kerang': 'Kerang Ajaib',
-  'quotes': 'Quotes',
-  'admin': 'Admin',
-  'group': 'Group',
-  'internet': 'Internet',
-  'anonymous': 'Anonymous Chat',
-  'downloader': 'Downloader',
-  'berita': 'Berita',
-  'tools': 'Tools',
-  'fun': 'Fun',
-  'database': 'Database', 
-  'vote': 'Voting',
-  'absen': 'Absen',
-  'catatan': 'Catatan',
-  'jadian': 'Jadian',
-  'islami': 'Islami',
-  'owner': 'Owner',
-  'advanced': 'Advanced',
-  'info': 'Info',
-  'audio': 'Audio',
-  'maker': 'Maker',
+  'rpgabsen': '𝐑𝐏𝐆-𝐀𝐁𝐒𝐄𝐍',
+  'rpg': '𝐑𝐏𝐆',
+  'game': '𝐆𝐀𝐌𝐄',
+  'xp': '𝐄𝐗𝐏, 𝐋𝐈𝐌𝐈𝐓',
+  'asupan': '𝐀𝐒𝐔𝐏𝐀𝐍',
+  'sticker': '𝐒𝐓𝐈𝐊𝐄𝐑',
+  'main': '𝐌𝐀𝐈𝐍',
+  'kerang': '𝐊𝐄𝐑𝐀𝐍𝐆 𝐀𝐉𝐀𝐈𝐁',
+  'quotes': '𝐐𝐔𝐎𝐓𝐄𝐒',
+  'admin': '𝐀𝐃𝐌𝐈𝐍',
+  'group': '𝐆𝐑𝐔𝐏',
+  'internet': '𝐈𝐍𝐓𝐄𝐑𝐍𝐄𝐓',
+  'anonymous': '𝐀𝐍𝐎𝐍𝐘𝐌𝐎𝐔𝐒 𝐂𝐇𝐀𝐓',
+  'downloader': '𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐑',
+  'berita': '𝐁𝐄𝐑𝐈𝐓𝐀',
+  'tools': '𝐓𝐎𝐎𝐋𝐒',
+  'fun': '𝐅𝐔𝐍',
+  'database': '𝐃𝐀𝐓𝐀𝐁𝐀𝐒𝐄', 
+  'vote': '𝐕𝐎𝐓𝐈𝐍𝐆',
+  'absen': '𝐀𝐁𝐒𝐄𝐍',
+  'catatan': '𝐂𝐀𝐓𝐀𝐓𝐀𝐍',
+  'jadian': '𝐉𝐀𝐃𝐈𝐀𝐍',
+  'islami': '𝐈𝐒𝐋𝐀𝐌𝐈',
+  'owner': '𝐎𝐖𝐍𝐄𝐑',
+  'virtex': '𝗩𝗜𝗥𝗧𝗘𝗫',
+  'info': '𝐈𝐍𝐅𝐎',
+  'audio': '𝐀𝐔𝐃𝐈𝐎',
+  'maker': '𝐌𝐀𝐊𝐄𝐑',
 }
 const defaultMenu = {
   before: `
-Hai, %ucapan %name! 👋
-  
-*Waktu:* 
-%wib WIB
-%wita WITA
-%wit WIT
-*Hari:* %week
-*Tanggal:* %date
-*Uptime:* %uptime (%muptime)
+❂═══❖•ೋ•
+╟ꂑ 𝐻𝑎𝑖, %ucapan %name! 👋
+╟  
+╟⌛*𝕎𝔸𝕂𝕋𝕌:* 
+╟%wib WIB
+╟%wita WITA
+╟%wit WIT
+╟🌄*𝐇𝐚𝐫𝐢:* %week
+╟📅*𝐓𝐚𝐧𝐠𝐠𝐚𝐥:* %date
+╟🕔*𝐔𝐩𝐭𝐢𝐦𝐞:* %uptime (%muptime)
+╚»★★ミ
 
-*Limit:* %limit
-*Level:* %level
-*XP:* %exp
+
+📊*𝐋𝐢𝐦𝐢𝐭𝐦𝐮:* %limit
+📶*𝐋𝐞𝐯𝐞𝐥𝐦𝐮:* %level
+🏋️‍♀️*𝐄𝐱𝐩𝐦𝐮:* %exp
 %readmore`.trimStart(),
-  header: ' *%category*',
-  body: ' • %cmd %islimit %isPremium',
-  footer: '\n',
-  after: `*Made by ♡*
-*%npmname* | %version
-${'```%npmdesc```'}
+  header: '⃝▣──「 %category 」───⬣',
+  body: '│ ○ %cmd %islimit %isPremium',
+  footer: '▣────────────⬣\n',
+  after: `ᴄʀᴇᴀᴛᴇ ʙʏ Qᴜᴇᴇɴᴢʏ
+ᴠᴇʀꜱɪᴏɴ | %version
+${'ᴀᴜᴛʜᴏʀ: ᴅᴇᴠxʏᴢ '}
 `,
 }
 let handler = async (m, { conn, usedPrefix: _p }) => {
@@ -129,8 +133,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
           ...help.filter(menu => menu.tags && menu.tags.includes(tag) && menu.help).map(menu => {
             return menu.help.map(help => {
               return body.replace(/%cmd/g, menu.prefix ? help : '%p' + help)
-                .replace(/%islimit/g, menu.limit ? '(Ⓛ)' : '')
-                .replace(/%isPremium/g, menu.premium ? '(Ⓟ)' : '')
+                .replace(/%islimit/g, menu.limit ? 'Ⓛ' : '')
+                .replace(/%isPremium/g, menu.premium ? 'Ⓟ' : '')
                 .trim()
             }).join('\n')
           }),
@@ -157,11 +161,11 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    conn.sendHydrated(m.chat, text.trim(), 'Ⓟ premium | Ⓛ limit', null, 'https://aiinne.github.io/', 'Website', '', '', [
+    conn.sendHydrated(m.chat, text.trim(), 'Ⓟ premium | Ⓛ limit', 'https://telegra.ph/file/37bffc7a70d76412935ca.jpg', 'Polsek terdekat, Awoawok... dipenjara 9 bulan lu tod', 'Jangan dibuka!!!','6285609524655', 'Telepon Owner via seluler',  [
       ['Donate', '/donasi'],
       ['Sewa Bot', '/sewa'],
       ['Owner', '/owner']
-    ], m)
+    ], m, { asLocation: true })
     /*let url = `https://telegra.ph/file/ab1df70dfd5c2bac64da1.jpg`.trim()
     let res = await fetch(url)
     let buffer = await res.buffer()
@@ -204,9 +208,29 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 }
 handler.help = ['menu']
 handler.tags = ['main']
-handler.command = /^(menu|help|\?)$/i
+handler.command = /^(semua|\?)$/i
 
 handler.exp = 3
+
+
+
+handler.all = async function (m, { isBlocked }) {
+    if (isBlocked) return
+
+      let regl = /(queenzy|.menu|help)/i
+    let isLoveYou = regl.exec(m.text)
+    let lovou = [
+'Hay kak/bang, ada yang bisa saya bantu? klik button untuk fitur yang saya punya'
+]
+let loveyou = lovou[Math.floor(Math.random() * lovou.length)]
+    if (isLoveYou && !m.fromMe) {
+
+
+        conn.sendButton(m.chat, loveyou,`Author: DevXyZ`, 'https://telegra.ph/file/37bffc7a70d76412935ca.jpg',[['All Fitur','/semua']], m, { asLocation: true })
+    }
+    }
+
+handler.limit = true
 
 module.exports = handler
 
@@ -234,7 +258,7 @@ function ucapan() {
         } else if (hour_now >= '18' && hour_now <= '23') {
           ucapanWaktu = 'Malam kak'
         } else {
-          ucapanWaktu = 'Selamat Malam!'
+          ucapanWaktu = 'Selamat Begadang'
         }	
         return ucapanWaktu
 }
