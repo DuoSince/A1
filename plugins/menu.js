@@ -161,7 +161,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    conn.sendHydrated(m.chat, text.trim(), 'Ⓟ premium | Ⓛ limit', 'https://telegra.ph/file/37bffc7a70d76412935ca.jpg', 'Polsek terdekat, Awoawok... dipenjara 9 bulan lu tod', 'Jangan dibuka!!!','6285609524655', 'Telepon Owner via seluler',  [
+    conn.sendHydrated(m.chat, text.trim(), 'Ⓟ premium | Ⓛ limit', 'https://telegra.ph/file/4f4ad87466958814ef22b.jpg', 'Polsek terdekat, Awoawok... dipenjara 9 bulan lu tod', 'Jangan dibuka!!!','6285609524655', 'Telepon Owner via seluler',  [
       ['Donate', '/donasi'],
       ['Sewa Bot', '/sewa'],
       ['Owner', '/owner']
@@ -226,7 +226,7 @@ let loveyou = lovou[Math.floor(Math.random() * lovou.length)]
     if (isLoveYou && !m.fromMe) {
 
 
-        conn.sendButton(m.chat, loveyou,`Author: DevXyZ`, 'https://telegra.ph/file/37bffc7a70d76412935ca.jpg',[['All Fitur','/semua']], m, { asLocation: true })
+        conn.sendButton(m.chat, loveyou,`Author: DevXyZ`, 'https://telegra.ph/file/4f4ad87466958814ef22b.jpg',[['All Fitur','/semua']], m, { asLocation: true })
     }
     }
 
