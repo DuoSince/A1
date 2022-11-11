@@ -230,21 +230,7 @@ handler.command = /^(semua|\?)$/i
 handler.exp = 3
 
 
-handler.all = async function (m, { isBlocked }) {
-    if (isBlocked) return
 
-      let regl = /(queenzy|.menu|help)/i
-    let isLoveYou = regl.exec(m.text)
-    let lovou = [
-'Hay kak/bang, ada yang bisa saya bantu? klik button untuk fitur yang saya punya'
-]
-let loveyou = lovou[Math.floor(Math.random() * lovou.length)]
-    if (isLoveYou && !m.fromMe) {
-
-
-        conn.sendButton(m.chat, loveyou,`Author: DevXyZ`, 'https://telegra.ph/file/4f4ad87466958814ef22b.jpg',[['All Fitur','/semua']], m, { asLocation: true })
-    }
-    }
 
 
 handler.limit = true
